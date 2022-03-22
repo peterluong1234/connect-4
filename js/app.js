@@ -98,7 +98,7 @@ function handleClick(e) {
     
     if (e.target.id == '2') {
         // set id to player turn
-        while (column1Iterator < divEl.length) {
+        while (column2Iterator < divEl.length) {
             if (divEl[column2Iterator].id != 'player1' || divEl[column2Iterator].id != 'player2') {
                 divEl[column2Iterator].id = currentTurn; 
                 playerChoices[1][column2Iterator] = playerValue;
@@ -110,7 +110,7 @@ function handleClick(e) {
 
     if (e.target.id == '3') {
         // set id to player turn
-        while (column1Iterator < divEl.length) {
+        while (column3Iterator < divEl.length) {
             if (divEl[column3Iterator].id != 'player1' || divEl[column3Iterator].id != 'player2') {
                 divEl[column3Iterator].id = currentTurn; 
                 playerChoices[2][column3Iterator] = playerValue;
@@ -122,7 +122,7 @@ function handleClick(e) {
 
     if (e.target.id == '4') {
         // set id to player turn
-        while (column1Iterator < divEl.length) {
+        while (column4Iterator < divEl.length) {
             if (divEl[column4Iterator].id != 'player1' || divEl[column4Iterator].id != 'player2') {
                 divEl[column4Iterator].id = currentTurn; 
                 playerChoices[3][column4Iterator] = playerValue;
@@ -134,7 +134,7 @@ function handleClick(e) {
 
     if (e.target.id == '5') {
         // set id to player turn
-        while (column1Iterator < divEl.length) {
+        while (column5Iterator < divEl.length) {
             if (divEl[column5Iterator].id != 'player1' || divEl[column5Iterator].id != 'player2') {
                 divEl[column5Iterator].id = currentTurn; 
                 playerChoices[4][column5Iterator] = playerValue;
@@ -144,17 +144,57 @@ function handleClick(e) {
         }
     }
 
-    // let str1 = 'column';
-    // let str2 = 'Iterator';
-    // let iterator = str1.concat(e.target.id,str2);
-    // console.log(iterator);
 
+
+    // THIS CODE TO TEST WITH RETURN ITERATORS
+    // while (returnIterator(e.target) < divEl.length) {
+    //     if (divEl[returnIterator(e.target)].id != 'player1' || divEl[returnIterator(e.target)].id != 'player2') {
+    //         divEl[returnIterator(e.target)].id = currentTurn; 
+    //         playerChoices[returnIterator2(e.target)][returnIterator(e.target)] = playerValue;
+    //         returnIterator(e.target)++;
+    //         console.log(playerChoices);
+    //     }
+    //      break;
+        
+    // }
 
     render();
 }
 
+// NOTE TEST RETURN ITERATORS
+// function returnIterator (elements){
+//     if (elements.id == '1') {
+//         return column1Iterator;
+//     } else if (elements.id == '2') {
+//         return column2Iterator;
+//     } else if (elements.id == '3') {
+//         return column3Iterator;
+//     } else if (elements.id == '4') {
+//         return column4Iterator;
+//     } else if (elements.id == '5') {
+//         return column5Iterator;
+//     } else {
+//         return;
+//     }
+// }
+
+// function returnIterator2 (elements) {
+//     if (elements.id == '1') {
+//         return 0;
+//     } else if (elements.id == '2') {
+//         return 1;
+//     } else if (elements.id == '3') {
+//         return 2;
+//     } else if (elements.id == '4') {
+//         return 3;
+//     } else if (elements.id == '5') {
+//         return 4;
+//     } else {
+//         return;
+//     }
+// }
 function checkForVictory () {
- // vertical victory
+    // vertical victory
 
 }
 
