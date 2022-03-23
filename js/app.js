@@ -9,7 +9,7 @@ const playerChoices = [];
 let player1;
 let player2;
 
-// STATE OF GAME =======================================================================================
+/// STATE OF GAME =======================================================================================
 let playerTurn = 1; // player turn switches between 1 & 2
 let playerValue = 2; // player value of '2' is assigned to player 1, value of '5' is assigned to player 2 
                      // used in array of playerChoices by totalling up value to determine victor
@@ -29,9 +29,13 @@ let currentTurn = 'player1';
 let currentTurnGhost = 'player1-ghost';
 
 // on click assign item = 'player1' or 'player2'
-document.querySelector('div').addEventListener('click',handleClick);
-document.querySelector('div').addEventListener('mouseover', mouseHover);
-document.querySelector('div').addEventListener('mouseout', mouseRemove)
+// document.querySelector('div').addEventListener('click',handleClick);
+// document.querySelector('div').addEventListener('mouseover', mouseHover);
+// document.querySelector('div').addEventListener('mouseout', mouseRemove)
+
+document.querySelector('div#container').addEventListener('click',handleClick);
+document.querySelector('div#container').addEventListener('mouseover', mouseHover);
+document.querySelector('div#container').addEventListener('mouseout', mouseRemove)
 
 const columnEl = document.getElementsByClassName("column");
 const rowEl = document.getElementsByClassName("row")
@@ -97,13 +101,14 @@ function mouseHover(e) {
     
     let rowElement;
     let columnClass;
-
+    
     if (e.target.className == 'row') {
         rowElement = e.target.parentNode.children;
     } else if (e.target.className == 'column') {
         rowElement = e.target.children;
+    } else {
+        return;
     }
-    console.log(rowElement);
 
     if (e.target.className == 'column') {
         columnClass = e.target;
@@ -128,9 +133,11 @@ function mouseRemove(e) {
         rowElement = e.target.parentNode.children;
     } else if (e.target.className == 'column') {
         rowElement = e.target.children;
+    } else {
+        return;
     }
 
-    for (let i = 0; i < rowElement.length; i++) {
+    for (let i = 0; i < 6; i++) {
         if (rowElement[i].id == currentTurnGhost) {
             rowElement[i].id = '';
             break;
@@ -139,8 +146,7 @@ function mouseRemove(e) {
 }
 
 function handleClick(e) {
-
-    // Testing Column Class to see if it can replace e.target
+    
     let columnClass;
     let divEl;
 
@@ -151,8 +157,6 @@ function handleClick(e) {
         columnClass = e.target.parentNode;
         divEl = columnClass.getElementsByClassName('row');
     }
-
-    // let divEl = e.target.getElementsByClassName('row');
     
     if ( columnClass.className != 'column') return;
     if (columnClass.className == 'column'){

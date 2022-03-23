@@ -6,22 +6,65 @@
     margin: 0;
     font-family: Helvetica;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
-    align-items: center;
     /*min-height: 100vh;*/
+    
   }
-  #title {
+
+  nav {
+      background-color: aliceblue;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+      justify-content: space-between;
+  }
+
+  nav > div {
+      display: flex;
+      margin: 10px;
+      
+  }
+
+  nav > div:last-child {
+      margin-left: auto;
+  }
+
+  .reset-button {
+    background-color: white;
+    border: 2px solid;
+    border-color: coral;
+    padding: 5px 15px 5px 15px;
+    text-align: center;
+    color: coral;
+    font-size: large;
+    }
+
+    .reset-button:hover {
+        background-color: coral;
+        color: white;
+    }
+
+  /* #title {
       align-items: center;
       display: flex;
       flex-direction: column;
+  } */
+  #main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
+
   #container {
       display: flex;
       flex-direction: row;
       justify-content: center;
       background: lightyellow;
       border: 1px solid;
+      max-width: fit-content;
+      margin-top: 20px;
   }
 
   .column {
@@ -118,20 +161,6 @@
     padding: 10px;
 }
 
-.reset-button {
-    background-color: white;
-    border: 2px solid;
-    border-color: coral;
-    padding: 5px 15px 5px 15px;
-    text-align: center;
-    color: coral;
-    font-size: large;
-}
-
-.reset-button:hover {
-    background-color: coral;
-    color: white;
-}
 
 h1 {
     color: coral;

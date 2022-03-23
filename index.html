@@ -9,10 +9,13 @@
     <link rel = "stylesheet" href = "css/style.css">
 </head>
 <body>
-    <span id = "title">
-        <h1>Connect Four</h1>
-        <h2 id = "player-victory"></h2>
-    </span>
+    <nav id = "title">
+        <div><h1>CONNECT FOUR</h1></div>
+        <!-- <h1>CONNECT FOUR</h1> -->
+        <div><h2 id = "player-victory"></h2></div>
+        <div id = "restart"><button class = "reset-button" onclick = "resetGame()">Reset Game</button></div>
+    </nav>
+    <div id = "main">
     <div id = "container">
         <div class = "column" id ="1">
             <div class = "row"></div>
@@ -69,13 +72,12 @@
             <div class = "row"></div>
             <div class = "row"></div>
             <div class = "row"></div>
-        </div>
-        
+        </div>  
     </div>
+</div>
     <div id = "info">
         <div id = "key"></div>
-        <div id = "restart"><button class = "reset-button" onclick = "resetGame()">Reset Game</button></div>
-    </div>
+       
     <!-- <div class = "grid-container">
         <div class = "item">1</div>
         <div class = "item">2</div>
