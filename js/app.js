@@ -1,7 +1,7 @@
 // to do: 
 // adjust code so clicking on circles works
 
-// VARIABLE DECLARATION =======================================================================================
+// VARIABLE DECLARATION ================================================================================
 const columnArr = [];
 const rowArr = [];
 const playerChoices = [];
@@ -26,9 +26,12 @@ const itemEl = document.querySelector("div");
 
 // values to set child id to
 let currentTurn = 'player1';
+let currentTurnGhost = 'player1-ghost';
 
 // on click assign item = 'player1' or 'player2'
 document.querySelector('div').addEventListener('click',handleClick);
+document.querySelector('div').addEventListener('mouseover', mouseHover);
+document.querySelector('div').addEventListener('mouseout', mouseRemove)
 
 const columnEl = document.getElementsByClassName("column");
 const rowEl = document.getElementsByClassName("row")
@@ -41,15 +44,17 @@ for (let i = 0; i < columnEl.length; i++) {
     }
 }
 
-// FUNCTIONS =======================================================================================
+// FUNCTIONS ============================================================================================
 function render() {
     // change players and updates turn & values
     if (playerTurn === 1) {
         currentTurn = 'player2';
+        currentTurnGhost = 'player2-ghost'
         playerTurn = 2;
         playerValue = 5;
     } else if (playerTurn === 2) {
         currentTurn = 'player1';
+        currentTurnGhost = 'player1-ghost'
         playerTurn = 1;
         playerValue = 2;
     }
@@ -83,8 +88,55 @@ function resetGame () {
     column7Iterator = 0;
     turnTotalIterator = 0;
     currentTurn = 'player1';
+    currentTurnGhost = 'player1-ghost';
 
 } // END OF RESETGAME
+
+// On hover, place ghost piece in column on top of current piece
+function mouseHover(e) {
+    
+    let rowElement;
+    let columnClass;
+
+    if (e.target.className == 'row') {
+        rowElement = e.target.parentNode.children;
+    } else if (e.target.className == 'column') {
+        rowElement = e.target.children;
+    }
+    console.log(rowElement);
+
+    if (e.target.className == 'column') {
+        columnClass = e.target;
+        divEl = e.target.getElementsByClassName('row');
+    } else if (e.target.className == 'row') {
+        columnClass = e.target.parentNode;
+        divEl = columnClass.getElementsByClassName('row');
+    }
+
+    for (let i = returnIterator(columnClass); i < rowElement.length; i++) {
+        if (rowElement[i].id != currentTurn) {
+            rowElement[i].id = currentTurnGhost;
+            break;
+        }
+    }
+}
+// Upon moving mouse, change back to normal state
+function mouseRemove(e) {
+    let rowElement;
+
+    if (e.target.className == 'row') {
+        rowElement = e.target.parentNode.children;
+    } else if (e.target.className == 'column') {
+        rowElement = e.target.children;
+    }
+
+    for (let i = 0; i < rowElement.length; i++) {
+        if (rowElement[i].id == currentTurnGhost) {
+            rowElement[i].id = '';
+            break;
+        }
+    }
+}
 
 function handleClick(e) {
 
@@ -184,8 +236,15 @@ function incrementIterator (elements){
     }
 }
 
-// check for victory conditions: 
+function checkIteratorSize (it, e) {
+    if (it == 6) {
+      e.id = 'column-filled'
+    }
+}
 
+// END OF ITERATOR FUNCTIONS
+
+// check for victory conditions: 
 function checkVictory (arr) {
     // horizontal - WORKS
     for(let i = 0; i < 7; i++) {
@@ -229,7 +288,7 @@ function checkVictory (arr) {
           } 
         }
       }
-  }
+  } // END OF CHECKVICTORY
   
   function sumOfEle (a1, a2, a3, a4) {
     return a1 + a2 + a3 + a4;
@@ -244,17 +303,7 @@ function checkVictory (arr) {
     }
     console.log(`player 1 wins`)
   }
-  
-  function victoryScreech2 () {
-    
-    console.log(`player 2 wins!`)
-  }
 
-  function checkIteratorSize (it, e) {
-      if (it == 6) {
-        e.id = 'column-filled'
-      }
-  }
 
   // backup just in case failure occurs
   

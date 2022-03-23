@@ -29,11 +29,10 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
-    
   }
 
   .column:hover {
-      background-color: antiquewhite;
+      background-color: lightgoldenrodyellow;
   }
 
   /* .column1 {
@@ -81,6 +80,15 @@
   #player2 {
     background-color: lightskyblue;
   }
+
+  #player1-ghost {
+    background-color: lightcoral;
+  }
+
+  #player2-ghost {
+    background-color: lightskyblue;
+  }
+
 /* 
   .grid-container {
     display: grid;
