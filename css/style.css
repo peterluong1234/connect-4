@@ -7,9 +7,15 @@
     font-family: Helvetica;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     /*min-height: 100vh;*/
   }
-
+  #title {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+  }
   #container {
       display: flex;
       flex-direction: row;
@@ -23,9 +29,14 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
+    
   }
 
-  .column1 {
+  .column:hover {
+      background-color: antiquewhite;
+  }
+
+  /* .column1 {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -44,7 +55,7 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
-  }
+  } */
 
   .row {
       display: flex;
@@ -59,6 +70,10 @@
       margin: 10px;
   }
 
+  /* .row:hover {
+    background-color: lightcoral;
+  } */
+  
   #player1 {
     background-color: lightcoral;
   }
