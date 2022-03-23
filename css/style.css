@@ -73,7 +73,7 @@
   /* .row:hover {
     background-color: lightcoral;
   } */
-  
+
   #player1 {
     background-color: lightcoral;
   }
@@ -103,4 +103,28 @@
 
 #column-filled {
     cursor: not-allowed;
+}
+
+#info {
+    margin: 10px;
+    padding: 10px;
+}
+
+.reset-button {
+    background-color: white;
+    border: 2px solid;
+    border-color: coral;
+    padding: 5px 15px 5px 15px;
+    text-align: center;
+    color: coral;
+    font-size: large;
+}
+
+.reset-button:hover {
+    background-color: coral;
+    color: white;
+}
+
+h1 {
+    color: coral;
 }

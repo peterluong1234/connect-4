@@ -1,7 +1,7 @@
 // to do: 
-// assign arr to div elements
+// adjust code so clicking on circles works
 
-
+// VARIABLE DECLARATION =======================================================================================
 const columnArr = [];
 const rowArr = [];
 const playerChoices = [];
@@ -9,7 +9,7 @@ const playerChoices = [];
 let player1;
 let player2;
 
-// STATE OF GAME
+// STATE OF GAME =======================================================================================
 let playerTurn = 1; // player turn switches between 1 & 2
 let playerValue = 2; // player value of '2' is assigned to player 1, value of '5' is assigned to player 2 
                      // used in array of playerChoices by totalling up value to determine victor
@@ -41,7 +41,7 @@ for (let i = 0; i < columnEl.length; i++) {
     }
 }
 
-// functions =======================================================================================
+// FUNCTIONS =======================================================================================
 function render() {
     // change players and updates turn & values
     if (playerTurn === 1) {
@@ -54,7 +54,7 @@ function render() {
         playerValue = 2;
     }
     checkVictory(playerChoices);
-}
+} // END OF RENDER
 
 function resetGame () {
     // reset array of values
@@ -66,8 +66,8 @@ function resetGame () {
     }
 
     // reset playerChoice id
-    let divEl = document.querySelectorAll('.row');
-    divEl.forEach(element => {
+    let divEl2 = document.querySelectorAll('.row');
+    divEl2.forEach(element => {
         element.id = '';
     })
 
@@ -83,29 +83,33 @@ function resetGame () {
     column7Iterator = 0;
     turnTotalIterator = 0;
     currentTurn = 'player1';
-    console.log(divEl);
-}
+
+} // END OF RESETGAME
 
 function handleClick(e) {
-    console.log(e.target.children);
-    // console.log(e.target.children.getElementsByClassName('row').id);
 
-    let divEl = e.target.getElementsByClassName('row');
+    // Testing Column Class to see if it can replace e.target
+    let columnClass;
+    let divEl;
 
-    console.log(`${returnIterator(e.target)},${returnIterator2(e.target)}`);
-    // return if column is not clicked
-    if ( e.target.className != 'column') return;
+    if (e.target.className == 'column') {
+        columnClass = e.target;
+        divEl = e.target.getElementsByClassName('row');
+    } else if (e.target.className == 'row') {
+        columnClass = e.target.parentNode;
+        divEl = columnClass.getElementsByClassName('row');
+    }
 
-
-    // find out which column child have id
-    // if not, add ID, if yes, move to next
-    if (e.target.className == 'column'){
-        while (returnIterator(e.target) < divEl.length) {
-            if (divEl[returnIterator(e.target)].id != 'player1' || divEl[returnIterator(e.target)].id != 'player2') {
-                divEl[returnIterator(e.target)].id = currentTurn; 
-                playerChoices[returnIterator2(e.target)][returnIterator(e.target)] = playerValue;
+    // let divEl = e.target.getElementsByClassName('row');
+    
+    if ( columnClass.className != 'column') return;
+    if (columnClass.className == 'column'){
+        while (returnIterator(columnClass) < divEl.length) {
+            if (divEl[returnIterator(columnClass)].id != 'player1' || divEl[returnIterator(columnClass)].id != 'player2') {
+                divEl[returnIterator(columnClass)].id = currentTurn; 
+                playerChoices[returnIterator2(columnClass)][returnIterator(columnClass)] = playerValue;
                 // returnIterator(e.target) += 1; line not working with operator??? fix on line below
-                incrementIterator(e.target);
+                incrementIterator(columnClass);
                 // checkIteratorSize(returnIterator(e.target),e.target);
                 turnTotalIterator++;
                 render();
@@ -114,6 +118,7 @@ function handleClick(e) {
             break;
         }
     }
+
 } // END OF HANDLECLICK
 
 // NOTE TEST RETURN ITERATORS
@@ -186,9 +191,9 @@ function checkVictory (arr) {
     for(let i = 0; i < 7; i++) {
       for(let j = 0; j < arr[0].length; j++) {
         if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 8) {
-          return victoryScreech();
+          return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 20) {
-          return victoryScreech2();
+          return victoryScreech(2);
         } 
       }
     }
@@ -197,9 +202,9 @@ function checkVictory (arr) {
     for(let i = 0; i < 4; i++) {
       for(let j = 0; j < 6; j++) {
         if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 8) {
-          return victoryScreech();
+          return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 20) {
-          return victoryScreech2();
+          return victoryScreech(2);
         } 
       }
     }
@@ -207,9 +212,9 @@ function checkVictory (arr) {
       for(let i = 0; i < 4; i++) {
         for(let j = 3; j < 6; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 8) {
-            return victoryScreech();
+            return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 20) {
-            return victoryScreech2();
+            return victoryScreech(2);
           } 
         }
       }
@@ -218,9 +223,9 @@ function checkVictory (arr) {
       for(let i = 0; i < 4; i++) {
         for(let j = 0; j < 3; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 8) {
-            return victoryScreech();
+            return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 20) {
-            return victoryScreech2();
+            return victoryScreech(2);
           } 
         }
       }
@@ -230,11 +235,18 @@ function checkVictory (arr) {
     return a1 + a2 + a3 + a4;
   }
   
-  function victoryScreech () {
+  function victoryScreech (player) {
+    let h2El = document.querySelector('#player-victory');
+    if (player == 1) {
+        return h2El.innerHTML = 'Player 1 wins!';
+    } else if (player == 2) {
+        return h2El.innerHTML = 'Player 2 wins!';
+    }
     console.log(`player 1 wins`)
   }
   
   function victoryScreech2 () {
+    
     console.log(`player 2 wins!`)
   }
 
@@ -245,7 +257,8 @@ function checkVictory (arr) {
   }
 
   // backup just in case failure occurs
-
+  
+  // HANDLECLICK V1
   // if (e.target.id == '1' && column1Iterator != 6) {
     // // set id to player turn
     //     while (column1Iterator < 6) {
@@ -338,6 +351,30 @@ function checkVictory (arr) {
     //             column7Iterator++;
     //             checkIteratorSize(column7Iterator,e.target);
     //             render();
+    //         }
+    //         break;
+    //     }
+    // }
+
+    // HANDLECLICK V2
+    // let divEl = e.target.getElementsByClassName('row');
+
+    // // return if column is not clicked
+    // if ( e.target.className != 'column') return;
+
+    // // find out which column child have id
+    // // if not, add ID, if yes, move to next
+    // if (e.target.className == 'column'){
+    //     while (returnIterator(e.target) < divEl.length) {
+    //         if (divEl[returnIterator(e.target)].id != 'player1' || divEl[returnIterator(e.target)].id != 'player2') {
+    //             divEl[returnIterator(e.target)].id = currentTurn; 
+    //             playerChoices[returnIterator2(e.target)][returnIterator(e.target)] = playerValue;
+    //             // returnIterator(e.target) += 1; line not working with operator??? fix on line below
+    //             incrementIterator(e.target);
+    //             // checkIteratorSize(returnIterator(e.target),e.target);
+    //             turnTotalIterator++;
+    //             render();
+    //             // console.log(playerChoices);
     //         }
     //         break;
     //     }
