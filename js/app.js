@@ -18,16 +18,19 @@ let column5Iterator; // = 0;
 let column6Iterator; // = 0;
 let column7Iterator; // = 0;
 let turnTotalIterator; // = 0;
-
-
-document.querySelector('div#container').addEventListener('click',handleClick);
-document.querySelector('div#container').addEventListener('mouseover', mouseHover);
-document.querySelector('div#container').addEventListener('mouseout', mouseRemove)
+let currentVictor;
 
 const itemEl = document.querySelector("div");
 const columnEl = document.getElementsByClassName("column");
 const rowEl = document.getElementsByClassName("row")
 const playerVictory = document.querySelector('#player-victory');
+const divContainer = document.querySelector('div#container');
+const rowDiv = document.querySelectorAll('.row');
+
+// EVENT LISTENERS
+divContainer.addEventListener('click',handleClick);
+divContainer.addEventListener('mouseover', mouseHover);
+divContainer.addEventListener('mouseout', mouseRemove)
 
 init();
 
@@ -43,8 +46,7 @@ function init () {
     }
 
     // reset playerChoice id
-    let divEl2 = document.querySelectorAll('.row');
-    divEl2.forEach(element => {
+    rowDiv.forEach(element => {
         element.id = '';
     })
 
@@ -61,6 +63,7 @@ function init () {
     currentTurn = 'player1';
     currentTurnGhost = 'player1-ghost';
     playerVictory.innerHTML = "";
+    currentVictor = 0;
 } // END OF INIT
 
 function render() {
@@ -77,6 +80,7 @@ function render() {
         playerValue = 2;
     }
     checkVictory(playerChoices);
+    console.log(currentVictor);
 } // END OF RENDER
 
 
@@ -241,9 +245,11 @@ function checkVictory (arr) {
     for(let i = 0; i < 7; i++) {
       for(let j = 0; j < arr[0].length; j++) {
         if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 8) {
-          return victoryScreech(1);
+            currentVictor = 1;
+            return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 20) {
-          return victoryScreech(2);
+            currentVictor = 2;
+            return victoryScreech(2);
         } 
       }
     }
@@ -252,9 +258,11 @@ function checkVictory (arr) {
     for(let i = 0; i < 4; i++) {
       for(let j = 0; j < 6; j++) {
         if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 8) {
-          return victoryScreech(1);
+            currentVictor = 1;
+            return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 20) {
-          return victoryScreech(2);
+            currentVictor = 2;
+            return victoryScreech(2);
         } 
       }
     }
@@ -262,8 +270,10 @@ function checkVictory (arr) {
       for(let i = 0; i < 4; i++) {
         for(let j = 3; j < 6; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 8) {
+              currentVictor = 1;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 20) {
+            currentVictor = 2;
             return victoryScreech(2);
           } 
         }
@@ -273,13 +283,16 @@ function checkVictory (arr) {
       for(let i = 0; i < 4; i++) {
         for(let j = 0; j < 3; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 8) {
+            currentVictor = 1;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 20) {
+            currentVictor = 2;
             return victoryScreech(2);
           } 
         }
       }
       
+      draw();
   } // END OF CHECKVICTORY
 
   function victoryScreech (player) {
