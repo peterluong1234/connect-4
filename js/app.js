@@ -3,13 +3,18 @@
 const columnArr = [];
 const rowArr = [];
 const playerChoices = [];
+const player1Value = 2;
+const player2Value = 5;
 
 let player1;
 let player2;
 let playerTurn; // = 1; // player turn switches between 1 & 2
 let playerValue; // = 2; // player1 = 2, player2 =  5;
 let currentTurn; // = 'player1';
-let currentTurnGhost; //= 'player1-ghost';                     
+let currentTurnGhost; //= 'player1-ghost'; 
+let currentVictor;
+let gameover = false;
+
 let column1Iterator; // = 0;
 let column2Iterator; // = 0;
 let column3Iterator; // = 0;
@@ -18,7 +23,6 @@ let column5Iterator; // = 0;
 let column6Iterator; // = 0;
 let column7Iterator; // = 0;
 let turnTotalIterator; // = 0;
-let currentVictor;
 
 const itemEl = document.querySelector("div");
 const columnEl = document.getElementsByClassName("column");
@@ -27,7 +31,7 @@ const playerVictory = document.querySelector('#player-victory');
 const divContainer = document.querySelector('div#container');
 const rowDiv = document.querySelectorAll('.row');
 
-// EVENT LISTENERS
+
 divContainer.addEventListener('click',handleClick);
 divContainer.addEventListener('mouseover', mouseHover);
 divContainer.addEventListener('mouseout', mouseRemove)
@@ -35,7 +39,7 @@ divContainer.addEventListener('mouseout', mouseRemove)
 init();
 
 // FUNCTIONS ============================================================================================
-
+// initialize game
 function init () {
     // reset array of values
     for (let i = 0; i < columnEl.length; i++) {
@@ -51,7 +55,7 @@ function init () {
     })
 
     playerTurn = 1;
-    playerValue = 2;
+    playerValue = player1Value;
     column1Iterator = 0;
     column2Iterator = 0;
     column3Iterator = 0;
@@ -64,6 +68,7 @@ function init () {
     currentTurnGhost = 'player1-ghost';
     playerVictory.innerHTML = "";
     currentVictor = 0;
+    gameover = false;
 } // END OF INIT
 
 function render() {
@@ -72,22 +77,25 @@ function render() {
         currentTurn = 'player2';
         currentTurnGhost = 'player2-ghost'
         playerTurn = 2;
-        playerValue = 5;
+        playerValue = player2Value;
     } else if (playerTurn === 2) {
         currentTurn = 'player1';
         currentTurnGhost = 'player1-ghost'
         playerTurn = 1;
-        playerValue = 2;
+        playerValue = player1Value;
     }
     checkVictory(playerChoices);
     console.log(currentVictor);
 } // END OF RENDER
 
+function sumOfEle (a1, a2, a3, a4) {
+    return a1 + a2 + a3 + a4;
+  } 
+
 
 // MOUSE FUNCTIONS: ============================================================================================
 // On hover, place ghost piece in column on top of current piece
 function mouseHover(e) {
-    
     let rowElement;
     let columnClass;
     
@@ -136,7 +144,6 @@ function mouseRemove(e) {
 }
 
 function handleClick(e) {
-    
     let columnClass;
     let divEl;
 
@@ -149,6 +156,9 @@ function handleClick(e) {
     }
     
     if ( columnClass.className != 'column') return;
+
+    // set current turn, playervalue, increment iterators, and display pieces
+    if (gameover === false) {
     if (columnClass.className == 'column'){
         while (returnIterator(columnClass) < divEl.length) {
             if (divEl[returnIterator(columnClass)].id != 'player1' || divEl[returnIterator(columnClass)].id != 'player2') {
@@ -164,7 +174,7 @@ function handleClick(e) {
             break;
         }
     }
-
+}
 } // END OF HANDLECLICK
 
 // RETURN ITERATORS: ============================================================================================
@@ -241,39 +251,39 @@ function checkIteratorSize (it, e) {
 // VICTORY FUNCTIONS ===========================================================================
 // check for victory conditions: 
 function checkVictory (arr) {
-    // horizontal - WORKS
+    // vertical
     for(let i = 0; i < 7; i++) {
       for(let j = 0; j < arr[0].length; j++) {
         if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 8) {
-            currentVictor = 1;
+            gameover = true;
             return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 20) {
-            currentVictor = 2;
+            gameover = true;
             return victoryScreech(2);
         } 
       }
     }
   
-    // vertical - WORKS
+    // horizontal
     for(let i = 0; i < 4; i++) {
       for(let j = 0; j < 6; j++) {
         if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 8) {
-            currentVictor = 1;
+            gameover = true;
             return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 20) {
-            currentVictor = 2;
+            gameover = true;
             return victoryScreech(2);
         } 
       }
     }
-    // // diagonal - arrayview: bottom-left, top-right - WORKS
+    // diagonal - arrayview: bottom-left, top-right
       for(let i = 0; i < 4; i++) {
         for(let j = 3; j < 6; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 8) {
-              currentVictor = 1;
+            gameover = true;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 20) {
-            currentVictor = 2;
+            gameover = true;
             return victoryScreech(2);
           } 
         }
@@ -283,10 +293,10 @@ function checkVictory (arr) {
       for(let i = 0; i < 4; i++) {
         for(let j = 0; j < 3; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 8) {
-            currentVictor = 1;
+            gameover = true;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 20) {
-            currentVictor = 2;
+            gameover = true;
             return victoryScreech(2);
           } 
         }
@@ -306,16 +316,12 @@ function checkVictory (arr) {
     } else if (player == 2) {
         return playerVictory.innerHTML = 'PLAYER 2 WINS!';
     }
-    
-  }
+  } // END OF VICTORYSCREECH
   
-  function sumOfEle (a1, a2, a3, a4) {
-    return a1 + a2 + a3 + a4;
-  }
-  
+
 function draw (){
     if (turnTotalIterator == 42) {
         playerVictory.innerHTML = "IT'S A DRAW!";
+        gameover = true;
     }
 }
-
