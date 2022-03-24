@@ -14,6 +14,7 @@
     <title>Document</title>
     <script defer src ="js/app.js"></script>
     <link rel = "stylesheet" href = "css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <nav id = "title">
@@ -82,11 +83,20 @@
         </div>
         <div id = "info">
             <div id = "key">
-                <div id = "player">
+                <div class = "player">
                     <div>PLAYER 1: </div><div id = "player-one"></div>
                 </div>
-                <div id = "player">
+                <div class = "player">
                     <div>PLAYER 2: </div><div id = "player-two"></div>
+                </div>
+            </div>
+            <div id = "tally">
+                <div class = "player" id = "points-header">POINTS</div>
+                <div id = "tally-player">
+                    <div class = "player">PLAYER 1: </div><div class = "player" id = "score1">0</div>
+                </div>
+                <div id = "tally-player">
+                    <div class = "player">PLAYER 2: </div><div class = "player" id = "score2">0</div>
                 </div>
             </div>
             <div id = "restart"><button class = "reset-button" onclick = "init()">RESET GAME</button></div>

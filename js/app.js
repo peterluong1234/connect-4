@@ -12,9 +12,10 @@ let playerTurn; // = 1; // player turn switches between 1 & 2
 let playerValue; // = 2; // player1 = 2, player2 =  5;
 let currentTurn; // = 'player1';
 let currentTurnGhost; //= 'player1-ghost'; 
-let currentVictor;
 let gameover = false;
 
+let player1Points = 0;
+let player2Points = 0;
 let column1Iterator; // = 0;
 let column2Iterator; // = 0;
 let column3Iterator; // = 0;
@@ -30,7 +31,8 @@ const rowEl = document.getElementsByClassName("row")
 const playerVictory = document.querySelector('#player-victory');
 const divContainer = document.querySelector('div#container');
 const rowDiv = document.querySelectorAll('.row');
-
+const tallyPlayer1 = document.querySelector("#score1");
+const tallyPlayer2 = document.querySelector("#score2");
 
 divContainer.addEventListener('click',handleClick);
 divContainer.addEventListener('mouseover', mouseHover);
@@ -67,7 +69,6 @@ function init () {
     currentTurn = 'player1';
     currentTurnGhost = 'player1-ghost';
     playerVictory.innerHTML = "";
-    currentVictor = 0;
     gameover = false;
 } // END OF INIT
 
@@ -85,7 +86,6 @@ function render() {
         playerValue = player1Value;
     }
     checkVictory(playerChoices);
-    console.log(currentVictor);
 } // END OF RENDER
 
 function sumOfEle (a1, a2, a3, a4) {
@@ -159,22 +159,23 @@ function handleClick(e) {
 
     // set current turn, playervalue, increment iterators, and display pieces
     if (gameover === false) {
-    if (columnClass.className == 'column'){
-        while (returnIterator(columnClass) < divEl.length) {
-            if (divEl[returnIterator(columnClass)].id != 'player1' || divEl[returnIterator(columnClass)].id != 'player2') {
-                divEl[returnIterator(columnClass)].id = currentTurn; 
-                playerChoices[returnIterator2(columnClass)][returnIterator(columnClass)] = playerValue;
-                // returnIterator(e.target) += 1; line not working with operator??? fix on line below
-                incrementIterator(columnClass);
-                // checkIteratorSize(returnIterator(e.target),e.target);
-                turnTotalIterator++;
-                render();
-                // console.log(playerChoices);
+        if (columnClass.className == 'column'){
+            while (returnIterator(columnClass) < divEl.length) {
+                if (divEl[returnIterator(columnClass)].id != 'player1' || divEl[returnIterator(columnClass)].id != 'player2') {
+                    divEl[returnIterator(columnClass)].id = currentTurn; 
+                    playerChoices[returnIterator2(columnClass)][returnIterator(columnClass)] = playerValue;
+                    // returnIterator(e.target) += 1; line not working with operator??? fix on line below
+                    incrementIterator(columnClass);
+                    // checkIteratorSize(returnIterator(e.target),e.target);
+                    turnTotalIterator++;
+                    render();
+                    // console.log(playerChoices);
+                }
+                break;
             }
-            break;
         }
     }
-}
+    tally();
 } // END OF HANDLECLICK
 
 // RETURN ITERATORS: ============================================================================================
@@ -256,9 +257,11 @@ function checkVictory (arr) {
       for(let j = 0; j < arr[0].length; j++) {
         if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 8) {
             gameover = true;
+            player1Points++;
             return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i][j+1],arr[i][j+2],arr[i][j+3]) == 20) {
             gameover = true;
+            player2Points++;
             return victoryScreech(2);
         } 
       }
@@ -269,9 +272,11 @@ function checkVictory (arr) {
       for(let j = 0; j < 6; j++) {
         if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 8) {
             gameover = true;
+            player1Points++;
             return victoryScreech(1);
         } else if (sumOfEle(arr[i][j], arr[i+1][j],arr[i+2][j],arr[i+3][j]) == 20) {
             gameover = true;
+            player2Points++;
             return victoryScreech(2);
         } 
       }
@@ -281,9 +286,11 @@ function checkVictory (arr) {
         for(let j = 3; j < 6; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 8) {
             gameover = true;
+            player1Points++;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j-1],arr[i+2][j-2],arr[i+3][j-3]) == 20) {
             gameover = true;
+            player2Points++;
             return victoryScreech(2);
           } 
         }
@@ -294,23 +301,19 @@ function checkVictory (arr) {
         for(let j = 0; j < 3; j++) {
           if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 8) {
             gameover = true;
+            player1Points++;
             return victoryScreech(1);
           } else if (sumOfEle(arr[i][j], arr[i+1][j+1],arr[i+2][j+2],arr[i+3][j+3]) == 20) {
             gameover = true;
+            player2Points++;
             return victoryScreech(2);
           } 
         }
       }
-      
       draw();
-  } // END OF CHECKVICTORY
+} // END OF CHECKVICTORY
 
-  function victoryScreech (player) {
-    // let colEl = document.querySelectorAll('.column');
-    // colEl.forEach(element => {
-    //     element.id = 'column-filled';
-    // })
-
+function victoryScreech (player) {
     if (player == 1) {
         return playerVictory.innerHTML = 'PLAYER 1 WINS!';
     } else if (player == 2) {
@@ -318,6 +321,10 @@ function checkVictory (arr) {
     }
   } // END OF VICTORYSCREECH
   
+function tally () {
+    tallyPlayer1.innerHTML = player1Points;
+    tallyPlayer2.innerHTML = player2Points;
+}
 
 function draw (){
     if (turnTotalIterator == 42) {
