@@ -63,7 +63,7 @@
   }
 
   .column:hover {
-      background-color: lightgoldenrodyellow;
+      background-color: rgb(255, 241, 196);
   }
 
   .row {
@@ -71,7 +71,7 @@
       flex-direction: row;
       width: 100px;
       height: 100px;
-      background-color: white;
+      background-color: rgb(246, 252, 255);
       border: 1px solid;
       justify-content: center;
       border-radius: 100%;
@@ -174,5 +174,5 @@
 }
 
 h2 {
-    text-transform: capitalize;
+    color: red;
 }

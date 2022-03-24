@@ -1,5 +1,3 @@
-// to do: 
-// adjust code so clicking on circles works
 
 // VARIABLE DECLARATION ================================================================================
 const columnArr = [];
@@ -8,47 +6,63 @@ const playerChoices = [];
 
 let player1;
 let player2;
+let playerTurn; // = 1; // player turn switches between 1 & 2
+let playerValue; // = 2; // player1 = 2, player2 =  5;
+let currentTurn; // = 'player1';
+let currentTurnGhost; //= 'player1-ghost';                     
+let column1Iterator; // = 0;
+let column2Iterator; // = 0;
+let column3Iterator; // = 0;
+let column4Iterator; // = 0;
+let column5Iterator; // = 0;
+let column6Iterator; // = 0;
+let column7Iterator; // = 0;
+let turnTotalIterator; // = 0;
 
-/// STATE OF GAME =======================================================================================
-let playerTurn = 1; // player turn switches between 1 & 2
-let playerValue = 2; // player value of '2' is assigned to player 1, value of '5' is assigned to player 2 
-                     // used in array of playerChoices by totalling up value to determine victor
-let column1Iterator = 0;
-let column2Iterator = 0;
-let column3Iterator = 0;
-let column4Iterator = 0;
-let column5Iterator = 0;
-let column6Iterator = 0;
-let column7Iterator = 0;
-let turnTotalIterator = 0;
-
-const itemEl = document.querySelector("div");
-
-// values to set child id to
-let currentTurn = 'player1';
-let currentTurnGhost = 'player1-ghost';
-
-// on click assign item = 'player1' or 'player2'
-// document.querySelector('div').addEventListener('click',handleClick);
-// document.querySelector('div').addEventListener('mouseover', mouseHover);
-// document.querySelector('div').addEventListener('mouseout', mouseRemove)
 
 document.querySelector('div#container').addEventListener('click',handleClick);
 document.querySelector('div#container').addEventListener('mouseover', mouseHover);
 document.querySelector('div#container').addEventListener('mouseout', mouseRemove)
 
+const itemEl = document.querySelector("div");
 const columnEl = document.getElementsByClassName("column");
 const rowEl = document.getElementsByClassName("row")
+const playerVictory = document.querySelector('#player-victory');
 
-// instantiate empty array to store choices
-for (let i = 0; i < columnEl.length; i++) {
-    playerChoices[i] = [];
-    for (let j = 0; j < columnEl[i].children.length; j++) {
-        playerChoices[i][j] = 0;
-    }
-}
+init();
 
 // FUNCTIONS ============================================================================================
+
+function init () {
+    // reset array of values
+    for (let i = 0; i < columnEl.length; i++) {
+        playerChoices[i] = [];
+        for (let j = 0; j < columnEl[i].children.length; j++) {
+            playerChoices[i][j] = 0;
+        }
+    }
+
+    // reset playerChoice id
+    let divEl2 = document.querySelectorAll('.row');
+    divEl2.forEach(element => {
+        element.id = '';
+    })
+
+    playerTurn = 1;
+    playerValue = 2;
+    column1Iterator = 0;
+    column2Iterator = 0;
+    column3Iterator = 0;
+    column4Iterator = 0;
+    column5Iterator = 0;
+    column6Iterator = 0;
+    column7Iterator = 0;
+    turnTotalIterator = 0;
+    currentTurn = 'player1';
+    currentTurnGhost = 'player1-ghost';
+    playerVictory.innerHTML = "";
+} // END OF INIT
+
 function render() {
     // change players and updates turn & values
     if (playerTurn === 1) {
@@ -65,37 +79,8 @@ function render() {
     checkVictory(playerChoices);
 } // END OF RENDER
 
-function resetGame () {
-    // reset array of values
-    for (let i = 0; i < columnEl.length; i++) {
-        playerChoices[i] = [];
-        for (let j = 0; j < columnEl[i].children.length; j++) {
-            playerChoices[i][j] = 0;
-        }
-    }
 
-    // reset playerChoice id
-    let divEl2 = document.querySelectorAll('.row');
-    divEl2.forEach(element => {
-        element.id = '';
-    })
-
-    playerTurn = 1; // player turn switches between 1 & 2
-    playerValue = 2; // player value of '2' is assigned to player 1, value of '5' is assigned to player 2 
-                        // used in array of playerChoices by totalling up value to determine victor
-    column1Iterator = 0;
-    column2Iterator = 0;
-    column3Iterator = 0;
-    column4Iterator = 0;
-    column5Iterator = 0;
-    column6Iterator = 0;
-    column7Iterator = 0;
-    turnTotalIterator = 0;
-    currentTurn = 'player1';
-    currentTurnGhost = 'player1-ghost';
-
-} // END OF RESETGAME
-
+// MOUSE FUNCTIONS: ============================================================================================
 // On hover, place ghost piece in column on top of current piece
 function mouseHover(e) {
     
@@ -125,6 +110,7 @@ function mouseHover(e) {
         }
     }
 }
+
 // Upon moving mouse, change back to normal state
 function mouseRemove(e) {
     let rowElement;
@@ -177,7 +163,7 @@ function handleClick(e) {
 
 } // END OF HANDLECLICK
 
-// NOTE TEST RETURN ITERATORS
+// RETURN ITERATORS: ============================================================================================
 // returns row iterator - Note: Value of row iterator will continually move up
 function returnIterator (elements){
     if (elements.id == '1') {
@@ -248,6 +234,7 @@ function checkIteratorSize (it, e) {
 
 // END OF ITERATOR FUNCTIONS
 
+// VICTORY FUNCTIONS ===========================================================================
 // check for victory conditions: 
 function checkVictory (arr) {
     // horizontal - WORKS
@@ -292,19 +279,30 @@ function checkVictory (arr) {
           } 
         }
       }
+      
   } // END OF CHECKVICTORY
+
+  function victoryScreech (player) {
+    // let colEl = document.querySelectorAll('.column');
+    // colEl.forEach(element => {
+    //     element.id = 'column-filled';
+    // })
+
+    if (player == 1) {
+        return playerVictory.innerHTML = 'PLAYER 1 WINS!';
+    } else if (player == 2) {
+        return playerVictory.innerHTML = 'PLAYER 2 WINS!';
+    }
+    
+  }
   
   function sumOfEle (a1, a2, a3, a4) {
     return a1 + a2 + a3 + a4;
   }
   
-  function victoryScreech (player) {
-    let h2El = document.querySelector('#player-victory');
-    if (player == 1) {
-        return h2El.innerHTML = 'Player 1 wins!';
-    } else if (player == 2) {
-        return h2El.innerHTML = 'Player 2 wins!';
+function draw (){
+    if (turnTotalIterator == 42) {
+        playerVictory.innerHTML = "IT'S A DRAW!";
     }
-    console.log(`player 1 wins`)
-  }
+}
 
