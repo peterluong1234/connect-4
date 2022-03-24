@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,71 +19,82 @@
     <nav id = "title">
         <div><h1>CONNECT FOUR</h1></div>
         <!-- <h1>CONNECT FOUR</h1> -->
-        <div><h2 id = "player-victory"></h2></div>
-        <div id = "restart"><button class = "reset-button" onclick = "resetGame()">Reset Game</button></div>
+
     </nav>
     <div id = "main">
-    <div id = "container">
-        <div class = "column" id ="1">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
+
+        <div id = "container">
+            <div class = "column" id ="1">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id ="2">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id = "3">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id = "4">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id = "5">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id = "6">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>
+            <div class = "column" id = "7">
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+                <div class = "row"></div>
+            </div>  
         </div>
-        <div class = "column" id ="2">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
+        <div id = "info">
+            <div id = "key">
+                <div id = "player">
+                    <div>PLAYER 1: </div><div id = "player-one"></div>
+                </div>
+                <div id = "player">
+                    <div>PLAYER 2: </div><div id = "player-two"></div>
+                </div>
+            </div>
+            <div id = "restart"><button class = "reset-button" onclick = "resetGame()">RESET GAME</button></div>
+            <div><h2 id = "player-victory"></h2></div>
+
         </div>
-        <div class = "column" id = "3">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-        </div>
-        <div class = "column" id = "4">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-        </div>
-        <div class = "column" id = "5">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-        </div>
-        <div class = "column" id = "6">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-        </div>
-        <div class = "column" id = "7">
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-            <div class = "row"></div>
-        </div>  
     </div>
-</div>
-    <div id = "info">
-        <div id = "key"></div>
        
     <!-- <div class = "grid-container">
         <div class = "item">1</div>
