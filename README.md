@@ -20,3 +20,7 @@
 - Just like the popular board game--but virtual! 
 - Connect 4 is a two-player game similar to tick-tac-toe, only you can't place your marker anywhere you want.
 - Click on any column to drop the piece onto the bottom-most row. First to 4 connected horizontally, vertically or diagonally wins the game!
+
+# Next Steps:
+- Add sounds
+- Implement online cross-player 1v1
